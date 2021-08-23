@@ -1,5 +1,5 @@
 from .models import Event, Location
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .forms import LocationForm
 from django.http import HttpResponseRedirect
 
@@ -96,3 +96,21 @@ def search_locations(request):
         }
 
         return render(request, 'events/search_locations.html', context)
+
+
+def update_location(request, pk):
+
+    location = Location.objects.get(pk=pk)
+
+    form = LocationForm(request.POST or None, instance=location)
+
+    if form.is_valid():
+        form.save()
+        return redirect('/locations')
+
+    context = {
+        'location': location,
+        'form': form,
+    }
+
+    return render(request, 'events/update_location.html', context)

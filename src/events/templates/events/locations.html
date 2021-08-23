@@ -12,6 +12,7 @@
         <h5 class="card-title">{{ location }}</h5>
         <p class="card-text">{{ location.address }}</p>
         <a href="{% url 'events:location-details' location.pk %}" class="btn btn-primary">Details</a>
+        <a href="{% url 'events:update-location' location.pk %}" class="btn btn-primary ">Update</a>
         </div>
     </div>
     {% endfor %}
