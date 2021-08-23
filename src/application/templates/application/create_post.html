@@ -2,11 +2,16 @@
 {% load static %}
 {% block title %}Create Post{% endblock title %}
 {% block content %}
-<div class="container">
-   <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-   </form>
-   <button>Submit</button>
+<div class="container mt-5">
+   <h2 class="dsubhead fs-4 mb-0 text-white text-center pb-5">Add Post:</h2>
+   {% if submitted %}
+       <p>Your Post was sumbitted sucessfully!</p>
+   {% else %}
+       <form action="" method="POST" class="text-white">
+           {% csrf_token %}
+           {{ form.as_p }}
+           <input type="submit" value="Submit" class="btn btn-primary">
+       </form>
+   {% endif %}
 </div>
 {% endblock content %}

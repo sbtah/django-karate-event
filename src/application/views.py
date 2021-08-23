@@ -1,23 +1,13 @@
 from django.shortcuts import render
 from .models import Post
 from .forms import PostForm
-import calendar
-from calendar import HTMLCalendar
-from datetime import datetime
+from django.http import HttpResponseRedirect
 
 
-def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
-
-    month = month.capitalize()
-    month_n = list(calendar.month_name).index(month)
-    month_n = int(month_n)
-
-    cal = HTMLCalendar().formatmonth(year, month_n)
+def home(request):
 
     context = {
-        'year': year,
-        'month': month,
-        'cal': cal,
+
     }
 
     return render(request, 'application/home.html', context)
@@ -48,10 +38,21 @@ def post_detail(request, pk):
 
 def create_post(request):
 
-    form = PostForm()
+    submitted = False
+
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('?submitted=True')
+    else:
+        form = PostForm
+        if 'submitted' in request.GET:
+            submitted = True
 
     context = {
         'form': form,
+        'submitted': submitted,
     }
 
     return render(request, 'application/create_post.html', context)

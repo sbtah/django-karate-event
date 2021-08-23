@@ -5,6 +5,7 @@ from .models import Location, Event
 
 # Create a Location Form
 class LocationForm(ModelForm):
+
     class Meta:
 
         model = Location
