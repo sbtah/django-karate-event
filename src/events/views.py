@@ -1,6 +1,6 @@
 from .models import Event, Location
 from django.shortcuts import redirect, render
-from .forms import LocationForm
+from .forms import LocationForm, EventForm
 from django.http import HttpResponseRedirect
 
 
@@ -114,3 +114,25 @@ def update_location(request, pk):
     }
 
     return render(request, 'events/update_location.html', context)
+
+
+def add_event(request):
+
+    submitted = False
+
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('?submitted=True')
+    else:
+        form = EventForm
+        if 'submitted' in request.GET:
+            submitted = True
+
+    context = {
+        'form': form,
+        'submitted': submitted,
+    }
+
+    return render(request, 'events/add_event.html', context)
