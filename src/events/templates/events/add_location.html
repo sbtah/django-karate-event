@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Add Location{% endblock title %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="dsubhead fs-4 mb-0 text-white text-center pb-5">Add Location:</h2>
+    {% if submitted %}
+        <p>Your Location was sumbitted sucessfully!</p>
+    {% else %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    {% endif %}
+</div>
+{% endblock content %}

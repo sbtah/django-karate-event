@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ event }}{% endblock title %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="subhead fs-4 mb-0 text-white text-center">Event:</h2>
+    <div class="card text-center mt-5 border border-info">
+        <div class="card-header">
+          <h6 class="display-6">{{ event.name }}</h6>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ event }}</h5>
+          <p class="card-text">City: {{ event.location.name }}</p>
+          <p class="card-text">Details: {{ event.description }}</p>
+          <p class="card-text">Manager: {{ event.manager }}</p>
+          <p class="card-text">Contact: {{ event.location.phone_number }}</p>
+          <a href="{% url 'events:location-details' event.location.pk %}"> {{ event.location }}</a>
+          <p class="card-text">Attendees:</p>
+          {% for user in event.attendees.all %}
+          <p class="card-text">{{ user }}</p>
+          {% endfor %}
+          <a href="{% url 'events:all-events' %}" class="btn btn-primary">Go Back</a>
+        </div>
+        <div class="card-footer text-muted">
+          <p>Date: {{ event.event_date }}</p>
+        </div>
+    </div>
+</div>
+{% endblock content %}

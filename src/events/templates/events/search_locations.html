@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Search Locations{% endblock title %}
+{% block content %}
+<div class="container mt-5">
+    {% if searched %}
+        <h2 class="subhead fs-4 mb-0 text-white text-center">You searched for: {{ searched }}</h2>
+        <hr>
+        {% for location in locations %}
+        <ul class="list-group">
+            <li class="list-group-item mt-3 border border-info"><a href="{% url 'events:location-details' location.pk %}">{{ location }}</a></li>
+        </ul>
+        {% endfor %}
+    {% else %}
+        <h2 class="subhead fs-4 mb-0 text-white text-center">You forgot to search for a location...</h2>
+    {% endif %}
+</div>
+{% endblock content %}
