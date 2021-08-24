@@ -6,12 +6,13 @@
     {% for event in events %}
     <div class="card mt-5 border border-info">
         <div class="card-header">
-        <h4>{{ event.name }}</h4>
+            <h4>{{ event.name }}</h4>
         </div>
         <div class="card-body">
-        <h5 class="card-title">{{ event }}</h5>
-        <p class="card-text">{{ event.description }}</p>
-        <a href="{% url 'events:event-details' event.pk %}" class="btn btn-primary">Details</a>
+            <h5 class="card-title">{{ event }}</h5>
+            <p class="card-text">{{ event.description }}</p>
+            <a href="{% url 'events:event-details' event.pk %}" class="btn btn-primary">Details</a>
+            <a href="{% url 'events:update-event' event.pk %}" class="btn btn-primary ">Update</a>    
         </div>
     </div>
     {% endfor %}

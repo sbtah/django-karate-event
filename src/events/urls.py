@@ -15,4 +15,6 @@ urlpatterns = [
     path('locations/update/<int:pk>/',
          views.update_location, name='update-location'),
     path('add-event/', views.add_event, name='add-event'),
+    path('events/update/<int:pk>/',
+         views.update_event, name='update-event'),
 ]

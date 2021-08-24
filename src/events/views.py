@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 
 def all_events(request):
 
-    events = Event.objects.all()
+    events = Event.objects.order_by('-event_date')
 
     context = {
 
@@ -136,3 +136,20 @@ def add_event(request):
     }
 
     return render(request, 'events/add_event.html', context)
+
+
+def update_event(request, pk):
+
+    event = Event.objects.get(pk=pk)
+    form = EventForm(request.POST or None, instance=event)
+
+    if form.is_valid():
+        form.save()
+        return redirect('/events')
+
+    context = {
+        'event': event,
+        'form': form,
+    }
+
+    return render(request, 'events/update_event.html', context)

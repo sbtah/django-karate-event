@@ -11,7 +11,7 @@
             <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
             <p class="card-text">by: {{ post.author }}</p>
-            <a href="{% url 'application:post-detail' post.pk %}" class="btn btn-primary">{{ post }}</a>
+            <a href="{% url 'application:post-detail' post.pk %}" class="btn btn-primary">Read</a>
             </div>
         </div>
     {% endfor %} 
