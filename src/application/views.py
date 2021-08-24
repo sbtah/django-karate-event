@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import Post
 from .forms import PostForm
 from django.http import HttpResponseRedirect
@@ -44,7 +44,7 @@ def create_post(request):
         form = PostForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('?submitted=True')
+            return HttpResponseRedirect('/posts/?submitted=True')
     else:
         form = PostForm
         if 'submitted' in request.GET:
@@ -56,3 +56,30 @@ def create_post(request):
     }
 
     return render(request, 'application/create_post.html', context)
+
+
+def update_post(request, pk):
+
+    post = Post.objects.get(pk=pk)
+
+    form = PostForm(request.POST or None, instance=post)
+
+    if form.is_valid():
+        form.save()
+
+        return redirect('/posts')
+
+    context = {
+        'post': post,
+        'form': form,
+    }
+
+    return render(request, 'application/update_post.html', context)
+
+
+def delete_post(request, pk):
+
+    post = Post.objects.get(pk=pk)
+    post.delete()
+
+    return redirect('/posts')

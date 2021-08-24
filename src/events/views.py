@@ -19,12 +19,10 @@ def all_events(request):
 def event_details(request, pk):
 
     event = Event.objects.get(pk=pk)
-    location = Location.objects.get(pk=pk)
 
     context = {
 
         'event': event,
-        'location': location,
     }
 
     return render(request, 'events/event_details.html', context)
@@ -38,7 +36,7 @@ def add_location(request):
         form = LocationForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('?submitted=True')
+            return HttpResponseRedirect('/locations/?submitted=True')
     else:
         form = LocationForm
         if 'submitted' in request.GET:
@@ -153,3 +151,19 @@ def update_event(request, pk):
     }
 
     return render(request, 'events/update_event.html', context)
+
+
+def delete_event(request, pk):
+
+    event = Event.objects.get(pk=pk)
+    event.delete()
+
+    return redirect('/events')
+
+
+def delete_location(request, pk):
+
+    location = Location.objects.get(pk=pk)
+    location.delete()
+
+    return redirect('/locations')

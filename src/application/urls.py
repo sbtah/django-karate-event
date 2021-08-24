@@ -9,5 +9,8 @@ urlpatterns = [
     path('posts/', views.post_list, name='all-posts'),
     path('posts/<int:pk>', views.post_detail, name='post-detail'),
     path('posts/create/', views.create_post, name='post-create'),
-    path('<int:year>/<str:month>/', views.home, name='calendar-page'),
+    path('posts/update/<int:pk>/',
+         views.update_post, name='update-post'),
+    path('posts/delete-location/<int:pk>',
+         views.delete_post, name='delete-post'),
 ]

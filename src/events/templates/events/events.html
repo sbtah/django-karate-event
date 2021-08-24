@@ -12,7 +12,8 @@
             <h5 class="card-title">{{ event }}</h5>
             <p class="card-text">{{ event.description }}</p>
             <a href="{% url 'events:event-details' event.pk %}" class="btn btn-primary">Details</a>
-            <a href="{% url 'events:update-event' event.pk %}" class="btn btn-primary ">Update</a>    
+            <a href="{% url 'events:update-event' event.pk %}" class="btn btn-success ">Update</a>
+            <a href="{% url 'events:delete-event' event.pk %}" class="btn btn-danger">Delete</a>    
         </div>
     </div>
     {% endfor %}
