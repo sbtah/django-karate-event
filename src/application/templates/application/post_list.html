@@ -4,19 +4,33 @@
 <div class="container mt-5">
     <h2 class="subhead fs-4 mb-0 text-white text-center">Post: </h2>
     {% for post in posts %}
-        <div class="card mt-5 border border-info">
-            <div class="card-header pt-3">
+        <div class="card mt-5 border border-info pt-2">
+            <div class="card-header pt-2">
                 <h3>{{ post }}</h3>
             </div>
             <div class="card-body">
-            <h5 class="card-title">{{ post.title }}</h5>
-            <p class="card-text">by: {{ post.author }}</p>
-            <a href="{% url 'application:post-detail' post.pk %}" class="btn btn-primary">Read</a>
-            <a href="{% url 'application:update-post' post.pk %}" class="btn btn-success ">Update</a>
-            <a href="{% url 'application:delete-post' post.pk %}" class="btn btn-danger">Delete</a> 
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">by: {{ post.author }}</p>
+                <a href="{% url 'application:post-detail' post.pk %}" class="btn btn-primary">Read</a>
+                <a href="{% url 'application:update-post' post.pk %}" class="btn btn-success ">Update</a>
+                <a href="{% url 'application:delete-post' post.pk %}" class="btn btn-danger">Delete</a> 
             </div>
         </div>
-    {% endfor %} 
+    {% endfor %}
 </div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+    {% if posts.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1" class="text-white">&laquo; First</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}" class="text-white">Previous</a></li>
+    {% endif %}
+    <li class="page-item disabled"><a class="page-link" href="#">Page  {{ posts.number }} of {{ posts.paginator.num_pages }}</a></li>
+    {% if posts.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}" class="text-white">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ posts.paginator.num_pages }}" class="text-white">&raquo; Last</a></li>
+    {% endif %}
+    </ul>
+</nav>
 {% endblock content %}
 

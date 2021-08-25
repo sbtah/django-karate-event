@@ -5,7 +5,7 @@
 <div class="container mt-5">
     <h2 class="subhead fs-4 mb-0 text-white text-center">Event:</h2>
     <div class="card text-center mt-5 border border-info">
-        <div class="card-header">
+        <div class="card-header pt-3">
           <h6 class="display-6">{{ event.name }}</h6>
         </div>
         <div class="card-body">
@@ -15,13 +15,15 @@
           <p class="card-text">Manager: {{ event.manager }}</p>
           <p class="card-text">Contact: {{ event.location.phone_number }}</p>
           <a href="{% url 'events:location-details' event.location.pk %}"> {{ event.location }}</a>
-          <p class="card-text">Attendees:</p>
-          {% for user in event.attendees.all %}
-          <p class="card-text">{{ user }}</p>
-          {% endfor %}
-          <a href="{% url 'events:all-events' %}" class="btn btn-primary">Go Back</a>
-        </div>
-        <div class="card-footer text-muted">
+          <div class="card-footer border border-info mt-2">
+            <p class="card-text">Attendees:</p>
+            {% for user in event.attendees.all %}
+            <p class="card-text">{{ user }}</p>
+            {% endfor %}
+          </div>
+            <a href="{% url 'events:all-events' %}" class="btn btn-primary mt-3">Go Back</a>
+          </div>
+        <div class="card-footer text-muted pt-4">
           <p>Date: {{ event.event_date }}</p>
         </div>
     </div>

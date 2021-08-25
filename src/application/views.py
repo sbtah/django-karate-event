@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from .models import Post
 from .forms import PostForm
 from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator
 
 
 def home(request):
@@ -15,9 +16,14 @@ def home(request):
 
 def post_list(request):
 
-    posts = Post.objects.order_by('-created')
+    posts_list = Post.objects.all()
+
+    p = Paginator(Post.objects.all(), 1)
+    page = request.GET.get('page')
+    posts = p.get_page(page)
 
     context = {
+        'posts_list': posts_list,
         'posts': posts,
     }
 

@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 
 def all_events(request):
 
-    events = Event.objects.order_by('-event_date')
+    events = Event.objects.all().order_by('-event_date')
 
     context = {
 
